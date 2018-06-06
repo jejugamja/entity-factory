@@ -2,6 +2,7 @@ package com.github.jejugamja.entityfactory;
 
 import com.github.jejugamja.entityfactory.person.Person;
 import com.github.jejugamja.entityfactory.person.PersonFactory;
+import com.github.jejugamja.entityfactory.person.PersonValidator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,15 +15,18 @@ import static org.hamcrest.CoreMatchers.is;
 public class EntityFactoryTest {
 
     private PersonFactory factory;
+    private PersonValidator personValidator;
 
     @Before
     public void setup() {
         factory = new PersonFactory();
         factory.setName("jejugamja");
+
+        personValidator = new PersonValidator();
     }
 
     @Test
-    public void test() {
+    public void createTest() {
         Person person = factory.create();
         Assert.assertThat("jejugamja", is(person.getName()));
 
@@ -30,7 +34,13 @@ public class EntityFactoryTest {
             Assert.assertThat("jejugamja", is(p.getName()));
 //            repository.save(p);
         });
+    }
 
+    @Test(expected = RuntimeException.class)
+    public void validateTest() {
+        factory.validate(personValidator.existsNameValidate())
+                .validate(personValidator.longNameValidator())
+                .create();
     }
 
 }
