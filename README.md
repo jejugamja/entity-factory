@@ -1,6 +1,6 @@
 # entity-factory
 
-entity factory입니다.
+간단한 entity factory입니다.
 create후처리 및 validate를 할 수 있습니다.
 
 ### Example
