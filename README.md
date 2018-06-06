@@ -30,6 +30,10 @@ public void createTest() {
 
     // 또는 callback 이용
     factory.create(repository::save);
+    factory.create(p -> {
+        repository.save(p);
+        // event 생성 등 후처리
+    });
 }
 ```
 
