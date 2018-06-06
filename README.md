@@ -28,7 +28,7 @@ public void createTest() {
     Person person = factory.create();
     Assert.assertThat("jejugamja", is(person.getName()));
 
-    // callback
+    // 또는 callback 이용
     factory.create(repository::save);
 }
 ```
@@ -56,3 +56,15 @@ public class PersonValidator {
     }
 }
 ```
+
+**Validate 후 create**
+```java
+@Test
+public void validateTest() {
+    factory.validate(personValidator.existsNameValidate())
+            .validate(personValidator.longNameValidator())
+            .create();
+}
+```
+
+
